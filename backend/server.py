@@ -14,7 +14,7 @@ app.config['MYSQL_DB'] = 'task2'
 mysql = MySQL(app)
 # -----
 
-
+#for registering
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if request.method == 'GET':
@@ -34,17 +34,17 @@ def register():
         usertype = res["usertype"]
         cursor = mysql.connection.cursor()
         cursor.execute(
-            ''' INSERT INTO users (username,email,firstname,lastname,password,usertype) VALUES(%s,%s,%s,%s,%s,%s)''', [username, email, firstname, lastname, password, usertype])
+            ''' INSERT INTO users (username,email,firstname,lastname,password,usertype) VALUES(%s,%s,%s,%s,%s,%s)''', 
+            [username, email, firstname, lastname, password, usertype])
         mysql.connection.commit()
         cursor.close()
         return f"Done!!"
 
-
+#for login
 @app.route("/login")
 def login():
     if request.args.get('username'):
         username = request.args.get('username')
-        # password = request.args.get('password')
         cursor = mysql.connection.cursor()
         cursor.execute(
             ''' SELECT password,usertype,username FROM users where username like (%s) ''', [username])
@@ -52,16 +52,14 @@ def login():
         cursor.close()
     else:
         email = request.args.get('email')
-        # password = request.args.get('password')
         cursor = mysql.connection.cursor()
         cursor.execute(
             ''' SELECT password,usertype,email FROM users where email like (%s) ''', [email])
         res = cursor.fetchall()
         cursor.close()
-    # return str(res)
     return jsonify(res)
 
-
+#checking if user already exists
 @app.route("/checkuser")
 def checkuser():
     username = request.args.get('username')
@@ -72,7 +70,7 @@ def checkuser():
     cursor.close()
     return jsonify(res)
 
-
+#checking if email already exists
 @app.route("/checkemail")
 def checkemail():
     email = request.args.get('email')
@@ -83,7 +81,7 @@ def checkemail():
     cursor.close()
     return jsonify(res)
 
-
+#fetching only users
 @app.route("/getusers")
 def getusers():
     cursor = mysql.connection.cursor()
@@ -93,7 +91,7 @@ def getusers():
     cursor.close()
     return jsonify(res)
 
-
+#assigning task to the user
 @app.route("/addtask", methods=['POST'])
 def addtask():
     res = request.get_json()
@@ -108,12 +106,13 @@ def addtask():
     cursor = mysql.connection.cursor()
     cursor.execute(
         ''' INSERT INTO tasks (title,description,assignto,startdate,enddate,deadline,taskstatus,screenshot) 
-        VALUES(%s,%s,%s,%s,%s,%s,%s,%s)''', [title, description, assignto, startdate, enddate, deadline, taskstatus, screenshot])
+        VALUES(%s,%s,%s,%s,%s,%s,%s,%s)''', 
+        [title, description, assignto, startdate, enddate, deadline, taskstatus, screenshot])
     mysql.connection.commit()
     cursor.close()
     return f"Done!!"
 
-
+#fetching particular users task
 @app.route("/getuserdata")
 def getuserdata():
     username = request.args.get('username')
@@ -124,6 +123,7 @@ def getuserdata():
     cursor.close()
     return jsonify(res)
 
+#for users to update their work status
 @app.route("/updatestatus", methods=['POST'])
 def updatestatus():
     res = request.get_json()

@@ -1,18 +1,14 @@
-import axios from 'axios'
 import React from 'react'
-import { useRef } from 'react'
-import { useEffect } from 'react'
-import { useState } from 'react'
+import axios from 'axios'
+import { useRef, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import s from './addTask.module.css'
-// import '../App.css'
 //-----
 
 function AddTask() {
 
-    let { user } = useParams()
+    //states
     let [userdata, setUserdata] = useState([])
-
     let [title, setTitle] = useState("")
     let [description, setDescription] = useState("")
     let [assignto, setAssignto] = useState("")
@@ -21,24 +17,35 @@ function AddTask() {
     let [deadline, setDeadline] = useState("")
     let [taskstatus, setTaskstatus] = useState("")
     let [screenshot, setScreenshot] = useState("")
-    let today = "";
+    //-----
 
+    //variables
+    let today = "";
+    //-----
+
+    //refs
     let msg = useRef()
     let sdate = useRef()
     let edate = useRef()
     let ddate = useRef()
     //-----
 
-    console.log(title);
-    console.log(description);
-    console.log(assignto);
-    console.log(startdate);
-    console.log(enddate);
-    console.log(deadline);
-    console.log(taskstatus);
-    console.log(screenshot);
+    //params
+    let { user } = useParams()
     //-----
 
+    //logs
+    // console.log(title);
+    // console.log(description);
+    // console.log(assignto);
+    // console.log(startdate);
+    // console.log(enddate);
+    // console.log(deadline);
+    // console.log(taskstatus);
+    // console.log(screenshot);
+    //-----
+
+    //useeffect hooks
     useEffect(() => {
         getTodaysDate();
         axios.get("http://localhost:5000/getusers")
@@ -51,13 +58,16 @@ function AddTask() {
     }, [])
     //------
 
+    //functions
+
+    //function to clear messages
     function clearMsg() {
         setTimeout(() => {
             msg.current.innerHTML = ""
         }, 4000);
     }
-    //-----
 
+    //function to assign task
     function assignTask(e) {
         if (title == "" | description == "" | assignto == "") {
             msg.current.style = "color: var(--errsmsg)"
@@ -86,54 +96,58 @@ function AddTask() {
         }
         e.preventDefault();
     }
-    //-----
+
+    //function to get todays date
     function getTodaysDate(){
         let date = new Date();
         let day = date.getDate();
         let month = date.getMonth() + 1;
         let year = date.getFullYear();
-
         if (month < 10) month = "0" + month;
         if (day < 10) day = "0" + day;
-
-        let today = year + "-" + month + "-" + day;
+        today = year + "-" + month + "-" + day;
         sdate.current.min = today
         edate.current.min = today
         ddate.current.min = today
-        // document.getElementById("startdate").value = today;
     }
+    //-----
 
     return (
         <div className={s.app}>
             <div className='subHeading'>
                 Logged in as: {user}
             </div>
+
             <form action="" className={s.addtask}>
+
                 <span className={s.heading}>Add Task</span>
                 <div className={s.subHeading}>
-                    Title: <input type="text" name='title' placeholder='Enter Title'
-                        onChange={(e) => {
-                                setTitle(e.target.value)
-                        }} />
+                    Title: 
+                    <input type="text" name='title' placeholder='Enter Title'
+                    onChange={(e) => {
+                            setTitle(e.target.value)
+                    }} />
                 </div>
+
                 <div className={s.subHeading}>
                     Description: <br />
                     <textarea name="description" cols="30" rows="7"
-                        onChange={(e) => {
-                            setDescription(e.target.value)
-                        }} ></textarea>
+                    onChange={(e) => {
+                        setDescription(e.target.value)
+                    }} ></textarea>
                 </div>
+
                 <div className={s.assign}>
                     <span className={s.selecttask}>
                         Assign to:
                         <select name="selectUser"
-                            onChange={(e) => {
-                                if (e.target.value == "Select") {
-                                    setAssignto("")
-                                } else {
-                                    setAssignto(e.target.value)
-                                }
-                            }}>
+                        onChange={(e) => {
+                            if (e.target.value == "Select") {
+                                setAssignto("")
+                            } else {
+                                setAssignto(e.target.value)
+                            }
+                        }}>
                             <option name="userlist">Select</option>
                             {
                                 userdata.map((data) => {
@@ -144,12 +158,17 @@ function AddTask() {
                             }
                         </select>
                     </span>
+
                     <div className={s.date}>
-                        <span>Start date: <input type="date" name='startDate' id='startdate' ref={sdate}
+
+                        <span>Start date: 
+                            <input type="date" name='startDate' id='startdate' ref={sdate}
                             onChange={(e) => {
                                     setStartdate(e.target.value)
                             }} /></span>
-                        <span>End date: <input type="date" name='endDate' ref={edate}
+
+                        <span>End date: 
+                            <input type="date" name='endDate' ref={edate}
                             onChange={(e) => {
                                 if (e.target.value < startdate) {
                                     msg.current.innerHTML = "End date should be greater than Start date!"
@@ -158,7 +177,9 @@ function AddTask() {
                                     setEnddate(e.target.value)
                                 }
                             }} /></span>
-                        <span>Deadline: <input type="date" name='deadline' ref={ddate}
+
+                        <span>Deadline: 
+                            <input type="date" name='deadline' ref={ddate}
                             onChange={(e) => {
                                 if (e.target.value < startdate | e.target.value < enddate) {
                                     msg.current.innerHTML = "Deadline should be greater than Start date and End date!"
@@ -167,18 +188,20 @@ function AddTask() {
                                     setDeadline(e.target.value)
                                 }
                             }} /></span>
+
                     </div>
                 </div>
+
                 <div className={s.taskstatus}>
                     Task Status:
                     <select name="taskStatus" className={s.select}
-                        onChange={(e) => {
-                            if (e.target.value == "Select") {
-                                setTaskstatus("")
-                            } else {
-                                setTaskstatus(e.target.value)
-                            }
-                        }}>
+                    onChange={(e) => {
+                        if (e.target.value == "Select") {
+                            setTaskstatus("")
+                        } else {
+                            setTaskstatus(e.target.value)
+                        }
+                    }}>
                         <option name="statusList">Select</option>
                         <option name="statusList">Todo</option>
                         <option name="statusList">In Progress</option>
@@ -186,17 +209,21 @@ function AddTask() {
                         <option name="statusList">Done</option>
                     </select>
                 </div>
+
                 <div className={s.screenshot}>
-                    Screenshot: <input type="file" accept='image/*'
+                    Screenshot: 
+                    <input type="file" accept='image/*'
                         onChange={(e) => {
                             let path = e.target.value
                             path = path.replace(/^.*\\/, "")
                             setScreenshot(path)
                         }} />
                 </div><br />
+
                 <div className={s.submit}>
                     <input type="submit" value='Assign Task' id={s.btn} onClick={assignTask} />
                 </div>
+
                 <div className='msg' ref={msg}>
 
                 </div>
