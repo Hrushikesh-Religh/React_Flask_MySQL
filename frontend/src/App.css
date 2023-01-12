@@ -1,0 +1,214 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+:root{
+    --mainbg:#845EC2;
+    --subbg:#B39CD0;
+    --light:#FBEAFF;
+    --btn:#00C9A7;
+    --text:#3f3f3f;
+    --errmsg:#C34A36;
+    --successmsg:#49887d;
+}
+*{
+    margin: 0;
+    padding: 0;
+    /* border-radius: 5px; */
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    color: var(--text);
+}
+.heading{
+    font-size: 25px;
+    font-weight: 700;
+    border: 3px solid var(--btn);
+    padding: 2px 10px 2px 10px;
+}
+.subHeading{
+    font-size: 16px;
+    font-weight: 700;
+}
+.app{
+    width: 100%;
+    height: 100vh;
+    /* display: flex; */
+    background-color: var(--light);
+    /* align-items: center; */
+    /* justify-content: center; */
+}
+.home{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    background-color: var(--light);
+    /* align-items: center; */
+    justify-content: center;
+}
+.mainContent{
+    /* border: 1px solid; */
+    height: max-content;
+    width: 50%;
+    padding: 0 0 10px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5%;
+    background-color: var(--subbg);
+    box-shadow: 0px 0px 20px 1px;
+}
+.selectUserType{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    font-weight: 700;
+}
+.selectUserType>.radio{
+    gap: 10px;
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+
+}
+.selectUserType>.radio>input{
+    width: max-content;
+    height: max-content;
+    /* gap: 10px; */
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+    align-items: center;
+}
+.buttons{
+    background-color: var(--text);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 3px solid var(--text);
+    gap: 3px;
+}
+button{
+    background-color: var(--subbg);
+    border: none;
+    padding: 10px;
+    width: 50%;
+    transition: 0.3s;
+    font-size: 20px;
+    font-weight: 700;
+}
+/* button:hover{
+    background-color: var(--btn);
+    transition: 0.3s;
+} */
+.register{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    margin: 10px;
+    background-color: var(--subbg);
+    /* border: 1px solid; */
+    /* box-shadow: 0px 0px 10px 0px; */
+
+}
+.login{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    gap: 10px;
+    margin: 10px;
+    background-color: var(--subbg);
+    
+}
+
+.rLoginBox{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    /* padding: 10px; */
+    gap: 10px;
+    background-color: var(--subbg);
+}
+.loginFormBox{
+    /* display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%; */
+    
+    /* margin: 10px; */
+    /* padding: 10px; */
+}
+.mainLoginBox{
+    width: 90%;
+    height: 30%;
+    background-color: var(--subbg);
+    /* border: 1px solid; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px;
+    gap: 10px;
+    box-shadow: 1px 1px 5px 1px;
+
+}
+input{
+    height: 30px;
+    width: 90%;
+    padding: 5px;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    outline: none;
+    border: 2px solid var(--mainbg);
+}
+.btn{
+    background-color: var(--mainbg);
+    border: none;
+    padding: 10px;
+    padding: 20px 30px 20px 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px solid transparent;
+    transition: 0.3s;
+    flex-direction: column;
+}
+.btn:hover{
+    border: 3px solid var(--btn);
+    transition: 0.3s;
+
+}
+#regbtn{
+    width: 50%;
+    font-size: 20px;
+    font-weight: 700;
+}
+#ulbtn{
+    width: 50%;
+    font-size: 20px;
+    font-weight: 700;
+}
+#adbtn{
+    width: 50%;
+    font-size: 20px;
+    font-weight: 700;
+}
+.msg{
+    /* color: var(--successmsg); */
+    font-weight: 700;
+}
+.lmsg{
+    font-weight:  700;
+}
