@@ -86,7 +86,7 @@ function AddTask() {
             axios.post("http://localhost:5000/addtask", payload)
                 .then(() => {
                     msg.current.style = "color: var(--successmsg)"
-                    msg.current.innerHTML = "Task Assigned Successfully !"
+                    msg.current.innerHTML = "Task Assigned Successfully ✔"
                 })
                 .catch(() => {
                     msg.current.style = "color: var(--errsmsg)"

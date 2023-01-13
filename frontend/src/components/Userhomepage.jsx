@@ -1,31 +1,24 @@
 import React from 'react'
 import axios from 'axios'
-import { useRef, useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import s from './userhomepage.module.css'
+import '../App.css'
 //-----
 
 function Userhomepage() {
 
   //states
   let [userdata, setUserdata] = useState([])
-  let [dateloaded, setDateloaded] = useState("")
+  let [newstatus,setNewstatus] = useState(false)
+  let [today,setToday] = useState()
   //-----
-  
-  //refs
-  let deadline = useRef()
-  //-----
-  
-  //navs
-  let nav = useNavigate()
-  //-----
-  
+
   //params
   let { user } = useParams()
   //-----
   
   //variables
-  let today = ""
   let statuslist = ["Todo", "In Progress", "Ready For Test", "Done"]
   //-----
 
@@ -38,15 +31,13 @@ function Userhomepage() {
     axios.get(`http://localhost:5000/getuserdata?username=${user}`)
       .then((res) => {
         setUserdata(res.data)
-        console.log("Data retreived !");
-        console.log(userdata)
+        console.log("Data retrieved ✔");
         getTodaysDate()
-        setDateloaded(res.data[7])
       })
       .catch(() => {
-        console.log("Error retreiving data !");
+        console.log("Error retrieving data! 😒");
       })
-  }, [])
+    }, [newstatus,user])
   //-----
 
   //functions
@@ -58,8 +49,10 @@ function Userhomepage() {
     let year = date.getFullYear();
     if (month < 10) month = "0" + month;
     if (day < 10) day = "0" + day;
-    today = year + "-" + month + "-" + day;
-}
+    let to = year + "-" + month + "-" + day;
+    setToday(to)
+  }
+  
   //-----
 
   return (
@@ -91,20 +84,22 @@ function Userhomepage() {
                   <td>{data[0]}</td>
                   <td>{data[1]}</td>
                   <td>{data[2]}</td>
-                  <td>{data[4] ? data[4] : '-'}</td>
-                  <td>{data[5] ? data[5] : '-'}</td>
-                  <td ref={deadline}>{data[6] ? data[6] : '-'}</td>
+                  <td id={data[4]}>{data[4] ? data[4] : '-'}</td>
+                  <td id={data[5]}>{data[5] ? data[5] : '-'}</td>
+                  <td id={data[6]} style={data[6] < today ?{border:'2px solid var(--errmsg)'}:{border:'none'}}>{data[6] ? data[6] : '-'}</td>
                   <td>{data[7] ? data[7] : '-'}</td>
                   <td>{
                     <>
                     <select name="selectstatus" defaultValue={data[7]}
                     onChange={(e) => {
+                      setNewstatus(false)
                       let newstatus = e.target.value
                       let id = data[0]
                       let payload = { newstatus, id }
                       axios.post("http://localhost:5000/updatestatus", payload)
                         .then(() => {
                           console.log("Status Updated ✔");
+                          setNewstatus(true)
                         })
                         .catch(() => {
                           console.log("Error updating status !");

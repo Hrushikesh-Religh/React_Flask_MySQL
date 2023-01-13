@@ -8,9 +8,9 @@ function Register() {
   
   //states
   let [username, setUsername] = useState("")
-  let [checkusername, setCheckusername] = useState([])
+  let [checkusername, setCheckusername] = useState("")
   let [email, setEmail] = useState("")
-  let [checkemail, setCheckemail] = useState([])
+  let [checkemail, setCheckemail] = useState("")
   let [firstname, setFirstname] = useState("")
   let [lastname, setLastname] = useState("")
   let [password, setPassword] = useState("")
@@ -19,7 +19,7 @@ function Register() {
   //-----
 
   //format patterns
-  const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const mailformat = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   const usernameformat = /^[a-z0-9_.]+$/;
   const nameformat = /^[A-Za-z0-9_.]+$/;
   //----- 
@@ -106,6 +106,7 @@ function Register() {
           console.log("Error Saving Details 😒");
         })
     }
+
     clearMsg()
     e.preventDefault()
   }

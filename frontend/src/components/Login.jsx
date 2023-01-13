@@ -13,6 +13,7 @@ function Login() {
     let [email, setEmail] = useState("")
     let [password, setPassword] = useState("")
     let [login, setLogin] = useState([])
+    let [check, setCheck] = useState(false)
     //-----
 
     //format patterns
@@ -63,16 +64,16 @@ function Login() {
         if (username !== "" & password !== "") {
             if (login == undefined) {
                 lmsg.current.style = "color: var(--errmsg)"
-                lmsg.current.innerHTML = "Username or Passsword is not correct! "
+                lmsg.current.innerHTML = "Username doesnot exists! 🤨"
             }
             else if(password != login[0]){
                 lmsg.current.style = "color: var(--errmsg)"
-                lmsg.current.innerHTML = "Passsword is not correct! "
+                lmsg.current.innerHTML = "Passsword is not correct! 😮"
             }
             else if(login[1] == 'admin' & password == login[0]) {
                 lmsg.current.style = "color: var(--successsmsg)"
                 lmsg.current.innerHTML = "Login Successfull! 😉"
-                nav(`/addtask/${username}`)
+                return nav(`/addtask/${username}`)
             }
             else if(login[1] == 'user' & password == login[0]){
                 lmsg.current.style = "color: var(--successsmsg)"
