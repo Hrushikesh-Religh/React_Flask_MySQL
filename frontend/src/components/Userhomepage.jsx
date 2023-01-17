@@ -18,6 +18,9 @@ function Userhomepage() {
   let { user } = useParams()
   //-----
   
+  //navs
+  //-----
+
   //variables
   let statuslist = ["Todo", "In Progress", "Ready For Test", "Done"]
   //-----
@@ -28,7 +31,7 @@ function Userhomepage() {
 
   //useeffects
   useEffect(() => {
-    axios.get(`http://localhost:5000/getuserdata?username=${user}`)
+      axios.get(`http://localhost:5000/getuserdata?username=${user}`)
       .then((res) => {
         setUserdata(res.data)
         console.log("Data retrieved ✔");
@@ -37,7 +40,7 @@ function Userhomepage() {
       .catch(() => {
         console.log("Error retrieving data! 😒");
       })
-    }, [newstatus,user])
+  }, [newstatus,user])
   //-----
 
   //functions
@@ -52,12 +55,11 @@ function Userhomepage() {
     let to = year + "-" + month + "-" + day;
     setToday(to)
   }
-  
   //-----
 
   return (
     <div className={s.userhomepage}>
-      <span className={s.heading}>User Login: {user}</span>
+      <span className={s.heading}>User Login: {user ? user : 'User'}</span>
       <span className={s.subHeading}>Task List :</span>
 
       <table>
@@ -86,7 +88,7 @@ function Userhomepage() {
                   <td>{data[2]}</td>
                   <td id={data[4]}>{data[4] ? data[4] : '-'}</td>
                   <td id={data[5]}>{data[5] ? data[5] : '-'}</td>
-                  <td id={data[6]} style={data[6] < today ?{border:'2px solid var(--errmsg)'}:{border:'none'}}>{data[6] ? data[6] : '-'}</td>
+                  <td id={data[6]} style={data[6] < today & data[7] != "Done" ?{border:'2px solid var(--errmsg)'}:{border:'none'}}>{data[6] ? data[6] : '-'}</td>
                   <td>{data[7] ? data[7] : '-'}</td>
                   <td>{
                     <>

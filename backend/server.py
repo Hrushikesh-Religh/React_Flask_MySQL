@@ -95,14 +95,14 @@ def getusers():
 @app.route("/addtask", methods=['POST'])
 def addtask():
     res = request.get_json()
-    title = res["title"]
+    title = res["title"] 
     description = res["description"]
     assignto = res["assignto"]
-    startdate = res["startdate"]
-    enddate = res["enddate"]
-    deadline = res["deadline"]
-    taskstatus = res["taskstatus"]
-    screenshot = res["screenshot"]
+    startdate = res["startdate"] or ''
+    enddate = res["enddate"] or ''
+    deadline = res["deadline"] or ''
+    taskstatus = res["taskstatus"] or ''
+    screenshot = res["screenshot"] or ''
     cursor = mysql.connection.cursor()
     cursor.execute(
         ''' INSERT INTO tasks (title,description,assignto,startdate,enddate,deadline,taskstatus,screenshot) 
@@ -131,7 +131,7 @@ def updatestatus():
     id = res["id"]
     cursor = mysql.connection.cursor()
     cursor.execute(
-        ''' update tasks set taskstatus = (%s) where id = (%s)''',[newstatus, id]
+        ''' update tasks set taskstatus = (%s) where id = (%s)''', [newstatus, id]
     )
     mysql.connection.commit()
     cursor.close()
