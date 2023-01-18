@@ -59,6 +59,7 @@ def login():
         cursor.close()
     return jsonify(res)
 
+
 #checking if user already exists
 @app.route("/checkuser")
 def checkuser():

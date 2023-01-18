@@ -11,7 +11,7 @@ function Login() {
     //states
     let [username, setUsername] = useState("")
     let [email, setEmail] = useState("")
-    let [password, setPassword] = useState("")
+    let [password, setPassword] = useState(false)
     let [login, setLogin] = useState([])
     let [check, setCheck] = useState(false)
     //-----
@@ -30,10 +30,10 @@ function Login() {
     //-----
 
     //logs
-    // console.log(username);
-    // console.log(email);
+    console.log(username);
+    console.log(email);
     // console.log(password);
-    // console.log(login);
+    console.log(login);
     //-----
 
     //useeffects
@@ -56,13 +56,20 @@ function Login() {
             console.log("Error fetching data 😒");
         })
     },[email])
+
     //-----
 
     //functions
+      //function to claear messages
+    function clearMsg(){
+        setTimeout(() => {
+            lmsg.current.innerHTML = ""
+        }, 4000);
+    }
     //function to handle form
     function handleSubmit(e) {
         if (username !== "" & password !== "") {
-            if (login == undefined) {
+            if (login === undefined) {
                 lmsg.current.style = "color: var(--errmsg)"
                 lmsg.current.innerHTML = "Username doesnot exists! 🤨"
             }
@@ -85,6 +92,7 @@ function Login() {
             // lmsg.current.style = "color: var(--errsmsg)"
             lmsg.current.innerHTML = "Fill all the required field! 🤨"    
         }
+        clearMsg();
         e.preventDefault()
     }
     //-----
